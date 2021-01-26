@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace SudokuSolver
 {
@@ -18,10 +19,23 @@ namespace SudokuSolver
             //}
 
 
-            bool q = Solver.possible(4, 4, 5);
-            Console.WriteLine(q ? "true" : "false");
+            //bool q = Solver.possible(0, 2, 1);
+            //Console.WriteLine(q ? "true" : "false");
+            //Solver.solve();
+            Solver.Print();
+            for (int y = 0; y < 9; y++)
+            {
+                for (int x = 0; x < 9; x++)
+                {
+                    if(Solver.arr[x,y] == 0)
+                    {
+                        Solver.solve();
+                    }
+                }
+            }
+            Solver.Print();
 
-        }
+                }
 
 
 

@@ -7,20 +7,30 @@ namespace SudokuSolver
     static class Solver
     {
         const int size = 9;
-        public static int[,] arr = new int[size, size] { { 5, 3, 0, 0, 7, 0, 0, 0, 0 },
-                                               { 6, 0, 0, 1, 9, 5, 0, 0, 0 },
-                                               { 0, 9, 8, 0, 0, 0, 0, 6, 0 },
-                                               { 8, 0, 0, 0, 6, 0, 0, 0, 3 },
-                                               { 4, 0, 0, 8, 0, 3, 0, 0, 1 },
-                                               { 7, 0, 0, 0, 2, 0, 0, 0, 6 },
-                                               { 0, 6, 0, 0, 0, 0, 2, 8, 0 },
-                                               { 0, 0, 0, 4, 1, 9, 0, 0, 5 },
-                                               { 0, 0, 0, 0, 8, 0, 0, 7, 9 }, };
+        //public static int[,] arr = new int[size, size] { { 5, 3, 0, 0, 7, 0, 0, 0, 0 },
+        //                                                 { 6, 0, 0, 1, 9, 5, 0, 0, 0 },
+        //                                                 { 0, 9, 8, 0, 0, 0, 0, 6, 0 },
+        //                                                 { 8, 0, 0, 0, 6, 0, 0, 0, 3 },
+        //                                                 { 4, 0, 0, 8, 0, 3, 0, 0, 1 },
+        //                                                 { 7, 0, 0, 0, 2, 0, 0, 0, 6 },
+        //                                                 { 0, 6, 0, 0, 0, 0, 2, 8, 0 },
+        //                                                 { 0, 0, 0, 4, 1, 9, 0, 0, 5 },
+        //                                                 { 0, 0, 0, 0, 8, 0, 0, 7, 9 }, };
+
+        public static int[,] arr = new int[size, size] { { 0, 0, 0, 0, 0, 9, 4, 7, 0 },
+                                                         { 0, 0, 2, 0, 3, 0, 0, 9, 8 },
+                                                         { 0, 6, 0, 0, 0, 2, 0, 0, 1 },
+                                                         { 0, 0, 0, 0, 0, 0, 5, 0, 7 },
+                                                         { 0, 7, 0, 0, 0, 0, 0, 6, 0 },
+                                                         { 8, 0, 3, 0, 0, 0, 0, 0, 0 },
+                                                         { 6, 0, 0, 1, 0, 0, 0, 2, 0 },
+                                                         { 7, 4, 0, 0, 6, 0, 9, 0, 0 },
+                                                         { 0, 1, 9, 4, 0, 0, 0, 0, 0 }, };
         public static bool possible(int y, int x, int n)
         {
             for (int i = 0; i < 9; i++)
             {
-                if (arr[y, n] == n)
+                if (arr[y, i] == n)
                 {
                     return false;
                 }
@@ -39,7 +49,6 @@ namespace SudokuSolver
                 for (int j = 0; j < 3; j++)
                 {
                     var q = arr[y0 + i, x0 + j];
-                    //var qq = arr[0, 0];
                     if (q == n)
                         return false;
                 }
@@ -54,7 +63,7 @@ namespace SudokuSolver
                 {
                     if (arr[y, x] == 0)
                     {
-                        for (int n = 1; n < 9; n++)
+                        for (int n = 1; n < 10; n++)
                         {
                             if (possible(y, x, n))
                             {
@@ -63,9 +72,14 @@ namespace SudokuSolver
                                 arr[y, x] = 0;
                             }
                         }
+                        return;
                     }
+
                 }
             }
+            Print();
+            Console.WriteLine("More?");
+            Console.ReadLine();
 
         }
 
