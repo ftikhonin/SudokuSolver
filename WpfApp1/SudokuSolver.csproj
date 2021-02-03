@@ -74,7 +74,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Cell.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="PuzzleGrid.cs" />
     <Compile Include="Solver.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

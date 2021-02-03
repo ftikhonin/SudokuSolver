@@ -54,6 +54,8 @@ namespace WpfApp1
                 q = new Row() { val1 = arr[i, 0], val2 = arr[i, 1], val3 = arr[i, 2], val4 = arr[i, 3], val5 = arr[i, 4], val6 = arr[i, 5], val7 = arr[i, 6], val8 = arr[i, 7], val9 = arr[i, 8] };
                 rows.Add(q);                
             }
+            var newGrid = new SudokuSolver.PuzzleGrid();
+            newGrid.CreateGrid();
 
             dataGrid1.ItemsSource = rows;
 
