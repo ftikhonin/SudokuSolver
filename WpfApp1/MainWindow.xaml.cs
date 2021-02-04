@@ -47,15 +47,18 @@ namespace WpfApp1
             InitializeComponent();
             res = arr;
 
-            List<Row> rows = new List<Row>();
+            var newGrid = new SudokuSolver.PuzzleGrid();
+            newGrid.CreateGrid();
+            var grid = newGrid.cells;
+            //var gridArr =
+            List <Row> rows = new List<Row>();
             for (int i = 0; i < 9; i++)
             {
                 var q = new Row();
-                q = new Row() { val1 = arr[i, 0], val2 = arr[i, 1], val3 = arr[i, 2], val4 = arr[i, 3], val5 = arr[i, 4], val6 = arr[i, 5], val7 = arr[i, 6], val8 = arr[i, 7], val9 = arr[i, 8] };
-                rows.Add(q);                
+                q = new Row() { val1 = grid[i, 0].Value, val2 = grid[i, 1].Value, val3 = grid[i, 2].Value, val4 = grid[i, 3].Value, val5 = grid[i, 4].Value, val6 = grid[i, 5].Value, val7 = grid[i, 6].Value, val8 = grid[i, 7].Value, val9 = grid[i, 8].Value };
+                rows.Add(q);
             }
-            var newGrid = new SudokuSolver.PuzzleGrid();
-            newGrid.CreateGrid();
+
 
             dataGrid1.ItemsSource = rows;
 
