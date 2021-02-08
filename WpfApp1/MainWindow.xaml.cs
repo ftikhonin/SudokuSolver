@@ -45,12 +45,11 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
-            res = arr;
 
             var newGrid = new SudokuSolver.PuzzleGrid();
             newGrid.CreateGrid();
             var grid = newGrid.cells;
-            //var gridArr =
+
             List <Row> rows = new List<Row>();
             for (int i = 0; i < 9; i++)
             {
@@ -80,7 +79,7 @@ namespace WpfApp1
         private void Solve_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             
-            GetResult();
+            //GetResult();
             List<Row> _rows = new List<Row>();
             for (int i = 0; i < 9; i++)
             {
@@ -102,72 +101,7 @@ namespace WpfApp1
             //dataGrid1.UpdateLayout();
             
         }
-        public bool possible(int y, int x, int n)
-        {
-
-            for (int i = 0; i < 9; i++)
-            {
-                if (res[y, i] == n)
-                {
-                    return false;
-                }
-            }
-            for (int i = 0; i < 9; i++)
-            {
-                if (res[i, x] == n)
-                {
-                    return false;
-                }
-            }
-            int x0 = (x / 3) * 3;
-            int y0 = (y / 3) * 3;
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    var q = res[y0 + i, x0 + j];
-                    if (q == n)
-                        return false;
-                }
-            }
-            return true;
-        }
-        public void solve()
-        {
-            for (int y = 0; y < 9; y++)
-            {
-                for (int x = 0; x < 9; x++)
-                {
-                    if (res[y, x] == 0)
-                    {
-                        for (int n = 1; n < 10; n++)
-                        {
-                            if (possible(y, x, n))
-                            {
-                                res[y, x] = n;
-                                solve();
-                                res[y, x] = 0;
-                            }
-                        }
-                        return;
-                    }
-
-                }
-            }
-        }
-        public void GetResult()
-        {
-            for (int y = 0; y < 9; y++)
-            {
-                for (int x = 0; x < 9; x++)
-                {
-                    if (res[x, y] == 0)
-                    {
-                        solve();
-                    }
-                }
-            }
-        }
+ 
 
 
     }
@@ -183,7 +117,6 @@ namespace WpfApp1
         public int? val7 { get; set; }
         public int? val8 { get; set; }
         public int? val9 { get; set; }
-        //public List <int?> values { get; set; }
 
     }
 }
