@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SudokuSolver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,104 +21,59 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        const int size = 9;
-        //public static int[,] arr = new int[size, size] { { 5, 3, 0, 0, 7, 0, 0, 0, 0 },
-        //                                                 { 6, 0, 0, 1, 9, 5, 0, 0, 0 },
-        //                                                 { 0, 9, 8, 0, 0, 0, 0, 6, 0 },
-        //                                                 { 8, 0, 0, 0, 6, 0, 0, 0, 3 },
-        //                                                 { 4, 0, 0, 8, 0, 3, 0, 0, 1 },
-        //                                                 { 7, 0, 0, 0, 2, 0, 0, 0, 6 },
-        //                                                 { 0, 6, 0, 0, 0, 0, 2, 8, 0 },
-        //                                                 { 0, 0, 0, 4, 1, 9, 0, 0, 5 },
-        //                                                 { 0, 0, 0, 0, 8, 0, 0, 7, 9 }, };
-        public static int[,] arr = new int[size, size] { { 0, 0, 0, 0, 0, 9, 4, 7, 0 },
-                                                         { 0, 0, 2, 0, 3, 0, 0, 9, 8 },
-                                                         { 0, 6, 0, 0, 0, 2, 0, 0, 1 },
-                                                         { 0, 0, 0, 0, 0, 0, 5, 0, 7 },
-                                                         { 0, 7, 0, 0, 0, 0, 0, 6, 0 },
-                                                         { 8, 0, 3, 0, 0, 0, 0, 0, 0 },
-                                                         { 6, 0, 0, 1, 0, 0, 0, 2, 0 },
-                                                         { 7, 4, 0, 0, 6, 0, 9, 0, 0 },
-                                                         { 0, 1, 9, 4, 0, 0, 0, 0, 0 }, };
-        public int[,] res;
-
+        private RowCollection rowCollection = new RowCollection();
         public static List<Row> Rows;
         public MainWindow()
         {
             InitializeComponent();
 
-            var newGrid = new SudokuSolver.PuzzleGrid();
+            var newGrid = new PuzzleGrid();
             newGrid.CreateGrid();
             var grid = newGrid.cells;
+            int size = PuzzleGrid.size;
+            DataContext = rowCollection;
 
-            List <Row> rows = new List<Row>();
             for (int i = 0; i < 9; i++)
             {
-                var q = new Row();
-                q = new Row() { val1 = grid[i, 0].Value, val2 = grid[i, 1].Value, val3 = grid[i, 2].Value, val4 = grid[i, 3].Value, val5 = grid[i, 4].Value, val6 = grid[i, 5].Value, val7 = grid[i, 6].Value, val8 = grid[i, 7].Value, val9 = grid[i, 8].Value };
-                rows.Add(q);
+                int[] row = new int[size];
+   
+                for (int j = 0; j < size; j++)
+                {
+                    row[j] = grid[i, j].Value;
+                    
+                }
+                rowCollection.AddRow(new Row(row));
             }
+            dataGrid1.ItemsSource = rowCollection.Rows;
 
-
-            dataGrid1.ItemsSource = rows;
-
-        }
-        private void FitToContent()
-        {
-            // where dg is my data grid's name...
-            foreach (DataGridColumn column in dataGrid1.Columns)
-            {
-                //if you want to size your column as per the cell content
-                column.Width = new DataGridLength(1.0, DataGridLengthUnitType.SizeToCells);
-                //if you want to size your column as per the column header
-                column.Width = new DataGridLength(1.0, DataGridLengthUnitType.SizeToHeader);
-                //if you want to size your column as per both header and cell content
-                column.Width = new DataGridLength(1.0, DataGridLengthUnitType.Auto);
-            }
         }
 
         private void Solve_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            
-            //GetResult();
-            List<Row> _rows = new List<Row>();
-            for (int i = 0; i < 9; i++)
-            {
-                var rw = new Row();
-                rw = new Row() { val1 = res[i, 0], 
-                    val2 = res[i, 1], 
-                    val3 = res[i, 2], 
-                    val4 = res[i, 3], 
-                    val5 = res[i, 4], 
-                    val6 = res[i, 5], 
-                    val7 = res[i, 6], 
-                    val8 = res[i, 7], 
-                    val9 = res[i, 8] };
-                _rows.Add(rw);
-            }
-            Rows = _rows;
-            dataGrid1.ItemsSource = Rows;
-            dataGrid1.Items.Refresh();
+            // var rw = new Row();
+            //    rw = new Row() { val1 = res[i, 0], 
+            ////GetResult();
+            //List<Row> _rows = new List<Row>();
+            //for (int i = 0; i < 9; i++)
+            //{
+            //    var rw = new Row();
+            //    rw = new Row() { val1 = res[i, 0], 
+            //        val2 = res[i, 1], 
+            //        val3 = res[i, 2], 
+            //        val4 = res[i, 3], 
+            //        val5 = res[i, 4], 
+            //        val6 = res[i, 5], 
+            //        val7 = res[i, 6], 
+            //        val8 = res[i, 7], 
+            //        val9 = res[i, 8] };
+            //    _rows.Add(rw);
+            //}
+            //Rows = _rows;
+            //dataGrid1.ItemsSource = Rows;
+            //dataGrid1.Items.Refresh();
             //dataGrid1.UpdateLayout();
-            
+
         }
- 
-
-
-    }
-
-    public class Row
-    {
-        public int? val1 { get; set; }
-        public int? val2 { get; set; }
-        public int? val3 { get; set; }
-        public int? val4 { get; set; }
-        public int? val5 { get; set; }
-        public int? val6 { get; set; }
-        public int? val7 { get; set; }
-        public int? val8 { get; set; }
-        public int? val9 { get; set; }
-
     }
 }
 
