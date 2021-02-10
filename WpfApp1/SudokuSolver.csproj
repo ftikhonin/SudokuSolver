@@ -77,6 +77,8 @@
     <Compile Include="Cell.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="PuzzleGrid.cs" />
+    <Compile Include="Row.cs" />
+    <Compile Include="RowCollection.cs" />
     <Compile Include="Solver.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
