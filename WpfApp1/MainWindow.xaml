@@ -43,16 +43,40 @@
                         <StackPanel MaxHeight="1000" Orientation="Horizontal">
                             <materialDesign:PackIcon Margin="15" Kind="Run" />
                             <TextBlock VerticalAlignment="Center" Text="Solve" />
-
                         </StackPanel>
                     </ListViewItem>
                 </ListView>
+                <ListView
+                    x:Name="DifficultList"
+                    Grid.Row="0"
+                    Height="250"
+                    Margin="15"
+                    SelectionMode="Single"
+                    SelectionChanged="DifficultList_SelectionChanged"
+                    >
+                    
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="70" Header="">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate DataType="wpf:Entry">
+                                        <ComboBox
+                                            Width="200"
+                                            IsSynchronizedWithCurrentItem="True"
+                                            ItemsSource="{Binding DifficultSource}"
+                                            SelectedItem="{Binding DifficultSourceSelectedCurrently, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>               
             </StackPanel>
         </Grid>
         <Grid Height="309" Margin="0,0,171,0">
             <DataGrid
                 Name="dataGrid1"
-                Height="350"                
+                Height="350"
                 MinWidth="100"
                 MinHeight="100"
                 Margin="352,0,-581,0"
@@ -66,8 +90,7 @@
                 GridLinesVisibility="All"
                 HeadersVisibility="None"
                 HorizontalScrollBarVisibility="Hidden"
-                RenderTransformOrigin="0.988,0.498">
-            </DataGrid>
+                RenderTransformOrigin="0.988,0.498" />
 
         </Grid>
     </Grid>
