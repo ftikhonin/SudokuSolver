@@ -12,6 +12,7 @@ namespace SudokuSolver
         public Cell[,] cells = new Cell[size, size];
         public Cell[,] cellsSnapshot;
         private int _defaultDifficult = 0;
+        public static int SelectedDifficult { get; set; }
         /// <summary> Сложность  </summary>
         public int Difficult
         {
@@ -21,14 +22,15 @@ namespace SudokuSolver
                 SetDifficult(value);
             }
         }
+        public static string[] DifficultType = new string[5] { "Beginner",  //0 - 32
+                                                               "Easy",      //1 - 30
+                                                               "Medium",    //2 - 28
+                                                               "Tricky",    //3 - 26
+                                                               "Fiendish" };//4 - 24
         /// <summary> Количество заполненных клеток, в зависимости от уровня сложности (по умолчанию 32)</summary>
         private int _filledCells { get; set; } = 32;
 
-        //0 - 32
-        //1 - 30
-        //2 - 28
-        //3 - 26
-        //4 - 24
+
 
         public bool CheckExistsInRow(int val, int row)
         {
@@ -78,11 +80,11 @@ namespace SudokuSolver
                         for (int j = 3; j < 6; j++)
                         {
                             if (cells[i, j].Value == val)
-                            { 
+                            {
                                 result = true;
                                 break;
                             }
-                                
+
                         }
                     }
                 }
@@ -210,7 +212,7 @@ namespace SudokuSolver
             SolveGrid();
 
 
-            Difficult = 3;
+            //_difficult
         }
         public List<int> Candidates = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         public List<int> CandidatesBckp = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -225,7 +227,7 @@ namespace SudokuSolver
             for (int i = 0; i < 81; i++)
             {
                 bool isFilled = false;
-                if( i == 47)
+                if (i == 47)
                 { var q = 1; }
                 int row = i / 9;
                 int col = i % 9;
@@ -244,7 +246,7 @@ namespace SudokuSolver
                             cells[row, col] = cell;
                             isFilled = true;
                             break;
-                        }                        
+                        }
                     }
                 }
 
@@ -268,7 +270,7 @@ namespace SudokuSolver
         }
 
 
-    
+
 
         public bool ExistsEmptyCells()
         {
