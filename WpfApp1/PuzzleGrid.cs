@@ -210,13 +210,10 @@ namespace SudokuSolver
             }
 
             SolveGrid();
-
-
-            //_difficult
         }
         public List<int> Candidates = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         public List<int> CandidatesBckp = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-        Random Rnd = new Random();
+
         public void SolveGrid()
         {
             if (!ExistsEmptyCells())
@@ -287,24 +284,6 @@ namespace SudokuSolver
             }
             return result;
         }
-        /// <summary> Метод проверяет есть ли заданное значение n в столбце выше </summary>
-        /// <param name="y"></param>
-        /// <param name="x"></param>
-        /// <param name="n"></param>
-        public bool ExistsInColumn(int y, int x, int n)
-        {
-            bool chk = false;
-            for (int i = 0; i < y; i++)
-            {
-                if (cells[i, x].Value == n)
-                {
-                    chk = true;
-                    return chk;
-                }
-
-            }
-            return chk;
-        }
 
         public void SetDifficult(int value)
         {
@@ -330,7 +309,6 @@ namespace SudokuSolver
                     break;
             }
         }
-
 
 
     }
