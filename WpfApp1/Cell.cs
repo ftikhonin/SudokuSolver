@@ -9,6 +9,5 @@ namespace SudokuSolver
     public class Cell
     {
         public int Value { get; set; } = 0;
-        public HashSet<int> Candidates { get; set; }
     }
 }

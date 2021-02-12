@@ -17,7 +17,10 @@
             <ColumnDefinition Width="350" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Grid fw:PointerTracker.Enabled="True" Background="#01FFFFFF">
+        <Grid
+            fw:PointerTracker.Enabled="True"
+            Background="#01FFFFFF"
+            RenderTransformOrigin="0.512,0.573">
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Button
@@ -45,23 +48,25 @@
                             <TextBlock VerticalAlignment="Center" Text="Solve" />
                         </StackPanel>
                     </ListViewItem>
+
                 </ListView>
                 <ListView
                     x:Name="DifficultList"
-                    Grid.Row="0"
-                    Height="250"
-                    Margin="15"
-                    SelectionMode="Single"
+                    Height="78"
+                    Margin="0"
+                    Padding="0"
+                    VerticalAlignment="Bottom"
+                    RenderTransformOrigin="0.507,0.517"
                     SelectionChanged="DifficultList_SelectionChanged"
-                    >
-                    
+                    SelectionMode="Single">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Width="70" Header="">
+                            <GridViewColumn Width="300">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate DataType="wpf:Entry">
                                         <ComboBox
-                                            Width="200"
+                                            Width="300"
+                                            Margin="0"
                                             IsSynchronizedWithCurrentItem="True"
                                             ItemsSource="{Binding DifficultSource}"
                                             SelectedItem="{Binding DifficultSourceSelectedCurrently, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -70,7 +75,7 @@
                             </GridViewColumn>
                         </GridView>
                     </ListView.View>
-                </ListView>               
+                </ListView>
             </StackPanel>
         </Grid>
         <Grid Height="309" Margin="0,0,171,0">

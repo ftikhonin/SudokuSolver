@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-//using SudokuSolver.Solver
 namespace WpfApp1
 {
     internal class RowCollection
