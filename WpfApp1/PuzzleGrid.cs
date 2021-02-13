@@ -236,7 +236,6 @@ namespace SudokuSolver
 
             for (int i = 0; i < 81; i++)
             {
-                bool isFilled = false;
                 int row = i / 9;
                 int col = i % 9;
                 if (cells[row, col].Value == 0)
@@ -252,7 +251,6 @@ namespace SudokuSolver
                             Cell cell = new Cell();
                             cell.Value = value;
                             cells[row, col] = cell;
-                            isFilled = true;
                             break;
                         }
                     }
