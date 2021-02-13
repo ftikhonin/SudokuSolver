@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 //using SudokuSolver
 namespace SudokuSolver
 {
-    class PuzzleGrid
+    public class PuzzleGrid :ICloneable
     {
         public const int size = 9;
         public Cell[,] cells = new Cell[size, size];
-        public Cell[,] cellsSnapshot;
+        public Cell[,] cellsBckp = new Cell[size, size];
         private int _defaultDifficult = 0;
-        public static int SelectedDifficult { get; set; }
-        /// <summary> Сложность  </summary>
-        public int Difficult
+        public List<int> Candidates = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        public List<int> CandidatesBckp = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        public int SelectedDifficult
         {
             get { return _defaultDifficult; }
             set
@@ -22,13 +22,28 @@ namespace SudokuSolver
                 SetDifficult(value);
             }
         }
+        //public PuzzleGrid(Cell[,] other)
+        //{
+        //    cells = other;
+        //}
+
+        //public PuzzleGrid()
+        //{
+        //}
+        public object Clone()
+        {
+            PuzzleGrid other = (PuzzleGrid) this.MemberwiseClone();
+            other.cells = this.cells;
+            return other;
+        }
+
         public static string[] DifficultType = new string[5] { "Beginner",  //0 - 32
                                                                "Easy",      //1 - 30
                                                                "Medium",    //2 - 28
                                                                "Tricky",    //3 - 26
                                                                "Fiendish" };//4 - 24
         /// <summary> Количество заполненных клеток, в зависимости от уровня сложности (по умолчанию 32)</summary>
-        private int _filledCells { get; set; } = 32;
+        public int _filledCells { get; set; } = 32;
 
 
 
@@ -208,11 +223,9 @@ namespace SudokuSolver
 
                 }
             }
-
             SolveGrid();
         }
-        public List<int> Candidates = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-        public List<int> CandidatesBckp = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
 
         public void SolveGrid()
         {
@@ -224,8 +237,6 @@ namespace SudokuSolver
             for (int i = 0; i < 81; i++)
             {
                 bool isFilled = false;
-                if (i == 47)
-                { var q = 1; }
                 int row = i / 9;
                 int col = i % 9;
                 if (cells[row, col].Value == 0)
@@ -246,7 +257,6 @@ namespace SudokuSolver
                         }
                     }
                 }
-
             }
 
             //check for empty cells and restart if any
@@ -264,10 +274,28 @@ namespace SudokuSolver
                 }
                 SolveGrid();
             }
+            //_gridBckp = new PuzzleGrid(cells);
         }
 
+        public void RemoveCells()
+        {
 
-
+            Random a = new Random(); // replace from new Random(DateTime.Now.Ticks.GetHashCode());
+                                     // Since similar code is done in default constructor internally
+            List<int> randomList = new List<int>();
+            int newNumber = 0;
+            while (randomList.Count < _filledCells)
+            {
+                newNumber = a.Next(0, 80);
+                if (!randomList.Contains(newNumber))
+                {
+                    randomList.Add(newNumber);
+                    int row = newNumber / 9;
+                    int col = newNumber % 9;
+                    cells[row, col].Value = 0;
+                }
+            }
+        }
 
         public bool ExistsEmptyCells()
         {
@@ -308,8 +336,7 @@ namespace SudokuSolver
                     _filledCells = 32;
                     break;
             }
+
         }
-
-
     }
 }
