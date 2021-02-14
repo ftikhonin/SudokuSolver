@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using SudokuSolver
 namespace SudokuSolver
 {
     public class PuzzleGrid :ICloneable
     {
         public const int size = 9;
-        public Cell[,] cells = new Cell[size, size];
-        public Cell[,] cellsBckp = new Cell[size, size];
+        public int[,] cells = new int[size, size];
+        public int[,] cellsBckp = new int[size, size];
         private int _defaultDifficult = 0;
         public List<int> Candidates = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         public List<int> CandidatesBckp = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -22,14 +21,7 @@ namespace SudokuSolver
                 SetDifficult(value);
             }
         }
-        //public PuzzleGrid(Cell[,] other)
-        //{
-        //    cells = other;
-        //}
 
-        //public PuzzleGrid()
-        //{
-        //}
         public object Clone()
         {
             PuzzleGrid other = (PuzzleGrid) this.MemberwiseClone();
@@ -52,7 +44,7 @@ namespace SudokuSolver
             bool result = false;
             for (int i = 0; i < 9; i++)
             {
-                if (cells[row, i].Value == val)
+                if (cells[row, i] == val)
                     result = true;
             }
             return result;
@@ -63,7 +55,7 @@ namespace SudokuSolver
             bool result = false;
             for (int i = 0; i < 9; i++)
             {
-                if (cells[i, col].Value == val)
+                if (cells[i, col] == val)
                     result = true;
             }
             return result;
@@ -80,7 +72,7 @@ namespace SudokuSolver
                     {
                         for (int j = 0; j < 3; j++)
                         {
-                            if (cells[i, j].Value == val)
+                            if (cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -94,7 +86,7 @@ namespace SudokuSolver
                     {
                         for (int j = 3; j < 6; j++)
                         {
-                            if (cells[i, j].Value == val)
+                            if (cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -109,7 +101,7 @@ namespace SudokuSolver
                     {
                         for (int j = 6; j < 9; j++)
                         {
-                            if (cells[i, j].Value == val)
+                            if (cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -126,7 +118,7 @@ namespace SudokuSolver
                     {
                         for (int j = 0; j < 3; j++)
                         {
-                            if (cells[i, j].Value == val)
+                            if (cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -140,7 +132,7 @@ namespace SudokuSolver
                     {
                         for (int j = 3; j < 6; j++)
                         {
-                            if (cells[i, j].Value == val)
+                            if (cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -154,7 +146,7 @@ namespace SudokuSolver
                     {
                         for (int j = 6; j < 9; j++)
                         {
-                            if (cells[i, j].Value == val)
+                            if (cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -171,7 +163,7 @@ namespace SudokuSolver
                     {
                         for (int j = 0; j < 3; j++)
                         {
-                            if (cells[i, j].Value == val)
+                            if (cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -185,7 +177,7 @@ namespace SudokuSolver
                     {
                         for (int j = 3; j < 6; j++)
                         {
-                            if (cells[i, j].Value == val)
+                            if (cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -199,7 +191,7 @@ namespace SudokuSolver
                     {
                         for (int j = 6; j < 9; j++)
                         {
-                            if (cells[i, j].Value == val)
+                            if (cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -213,8 +205,7 @@ namespace SudokuSolver
 
         public void CreateGrid()
         {
-            Cell nc = new Cell();
-            nc.Value = 0;
+            int nc = 0;
             for (int x = 0; x < size; x++)
             {
                 for (int y = 0; y < size; y++)
@@ -224,6 +215,7 @@ namespace SudokuSolver
                 }
             }
             SolveGrid();
+            cellsBckp = (int[,])cells.Clone();
         }
 
 
@@ -238,7 +230,7 @@ namespace SudokuSolver
             {
                 int row = i / 9;
                 int col = i % 9;
-                if (cells[row, col].Value == 0)
+                if (cells[row, col] == 0)
                 {
                     Candidates = Candidates.OrderBy(x => Guid.NewGuid()).ToList(); //shuffle numbers
                     foreach (int value in Candidates)
@@ -248,8 +240,7 @@ namespace SudokuSolver
                         var es = CheckExistsInSquere(value, row, col);
                         if (!er && !ec && !es)
                         {
-                            Cell cell = new Cell();
-                            cell.Value = value;
+                            int cell = value;
                             cells[row, col] = cell;
                             break;
                         }
@@ -260,8 +251,7 @@ namespace SudokuSolver
             //check for empty cells and restart if any
             if (ExistsEmptyCells())
             {
-                Cell nc = new Cell();
-                nc.Value = 0;
+                int nc = 0;
                 for (int x = 0; x < size; x++)
                 {
                     for (int y = 0; y < size; y++)
@@ -272,7 +262,6 @@ namespace SudokuSolver
                 }
                 SolveGrid();
             }
-            //_gridBckp = new PuzzleGrid(cells);
         }
 
         public void RemoveCells()
@@ -290,7 +279,7 @@ namespace SudokuSolver
                     randomList.Add(newNumber);
                     int row = newNumber / 9;
                     int col = newNumber % 9;
-                    cells[row, col].Value = 0;
+                    cells[row, col] = 0;
                 }
             }
         }
@@ -302,7 +291,7 @@ namespace SudokuSolver
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    if (cells[i, j].Value == 0)
+                    if (cells[i, j] == 0)
                     {
                         result = true;
                     }
