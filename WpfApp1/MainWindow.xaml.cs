@@ -45,7 +45,7 @@ namespace WpfApp1
 
                 for (int j = 0; j < size; j++)
                 {
-                    row[j] = cells[i, j].Value;
+                    row[j] = cells[i, j];
 
                 }
                 rowCollection.AddRow(new Row(row));
@@ -67,10 +67,9 @@ namespace WpfApp1
         private void DifficultList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _grid.SelectedDifficult = Array.FindIndex(PuzzleGrid.DifficultType, x => x == e.AddedItems[0].ToString());
-            _grid.cells = _gridBckp.cells;
-            //var q = _gridBckp;
+            _grid.cells = (int[,])_grid.cellsBckp.Clone();            
             _grid.RemoveCells();
-            //TODO make a grid backup into a new object and restore from it
+            
             var grid = _grid.cells;
             int size = PuzzleGrid.size;
 
@@ -83,7 +82,7 @@ namespace WpfApp1
 
                 for (int j = 0; j < size; j++)
                 {
-                    row[j] = grid[i, j].Value;
+                    row[j] = grid[i, j];
 
                 }
                 rowCollection.AddRow(new Row(row));
