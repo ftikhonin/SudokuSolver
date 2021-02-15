@@ -7,25 +7,21 @@ namespace SudokuSolver
 {
     public class PuzzleGrid :ICloneable
     {
-        public const int size = 9;
-        public int[,] cells = new int[size, size];
-        public int[,] cellsBckp = new int[size, size];
-        private int _defaultDifficult = 0;
+        public const int Size = 9;
+        public int[,] Cells = new int[Size, Size];
+        public int[,] CellsBckp = new int[Size, Size];
+        private readonly int _defaultDifficult = 0;
         public List<int> Candidates = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-        public List<int> CandidatesBckp = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         public int SelectedDifficult
         {
-            get { return _defaultDifficult; }
-            set
-            {
-                SetDifficult(value);
-            }
+            get => _defaultDifficult;
+            set => SetDifficult(value);
         }
 
         public object Clone()
         {
             PuzzleGrid other = (PuzzleGrid) this.MemberwiseClone();
-            other.cells = this.cells;
+            other.Cells = this.Cells;
             return other;
         }
 
@@ -35,7 +31,7 @@ namespace SudokuSolver
                                                                "Tricky",    //3 - 26
                                                                "Fiendish" };//4 - 24
         /// <summary> Количество заполненных клеток, в зависимости от уровня сложности (по умолчанию 32)</summary>
-        public int _filledCells { get; set; } = 32;
+        public int FilledCells { get; set; } = 32;
 
 
 
@@ -44,7 +40,7 @@ namespace SudokuSolver
             bool result = false;
             for (int i = 0; i < 9; i++)
             {
-                if (cells[row, i] == val)
+                if (Cells[row, i] == val)
                     result = true;
             }
             return result;
@@ -55,7 +51,7 @@ namespace SudokuSolver
             bool result = false;
             for (int i = 0; i < 9; i++)
             {
-                if (cells[i, col] == val)
+                if (Cells[i, col] == val)
                     result = true;
             }
             return result;
@@ -72,7 +68,7 @@ namespace SudokuSolver
                     {
                         for (int j = 0; j < 3; j++)
                         {
-                            if (cells[i, j] == val)
+                            if (Cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -86,7 +82,7 @@ namespace SudokuSolver
                     {
                         for (int j = 3; j < 6; j++)
                         {
-                            if (cells[i, j] == val)
+                            if (Cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -101,7 +97,7 @@ namespace SudokuSolver
                     {
                         for (int j = 6; j < 9; j++)
                         {
-                            if (cells[i, j] == val)
+                            if (Cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -118,7 +114,7 @@ namespace SudokuSolver
                     {
                         for (int j = 0; j < 3; j++)
                         {
-                            if (cells[i, j] == val)
+                            if (Cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -132,7 +128,7 @@ namespace SudokuSolver
                     {
                         for (int j = 3; j < 6; j++)
                         {
-                            if (cells[i, j] == val)
+                            if (Cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -146,7 +142,7 @@ namespace SudokuSolver
                     {
                         for (int j = 6; j < 9; j++)
                         {
-                            if (cells[i, j] == val)
+                            if (Cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -163,7 +159,7 @@ namespace SudokuSolver
                     {
                         for (int j = 0; j < 3; j++)
                         {
-                            if (cells[i, j] == val)
+                            if (Cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -177,7 +173,7 @@ namespace SudokuSolver
                     {
                         for (int j = 3; j < 6; j++)
                         {
-                            if (cells[i, j] == val)
+                            if (Cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -191,7 +187,7 @@ namespace SudokuSolver
                     {
                         for (int j = 6; j < 9; j++)
                         {
-                            if (cells[i, j] == val)
+                            if (Cells[i, j] == val)
                             {
                                 result = true;
                                 break;
@@ -205,17 +201,17 @@ namespace SudokuSolver
 
         public void CreateGrid()
         {
-            int nc = 0;
-            for (int x = 0; x < size; x++)
+            const int nc = 0;
+            for (int x = 0; x < Size; x++)
             {
-                for (int y = 0; y < size; y++)
+                for (int y = 0; y < Size; y++)
                 {
-                    cells[x, y] = nc;
+                    Cells[x, y] = nc;
 
                 }
             }
             SolveGrid();
-            cellsBckp = (int[,])cells.Clone();
+            CellsBckp = (int[,])Cells.Clone();
         }
 
 
@@ -230,7 +226,7 @@ namespace SudokuSolver
             {
                 int row = i / 9;
                 int col = i % 9;
-                if (cells[row, col] == 0)
+                if (Cells[row, col] == 0)
                 {
                     Candidates = Candidates.OrderBy(x => Guid.NewGuid()).ToList(); //shuffle numbers
                     foreach (int value in Candidates)
@@ -241,7 +237,7 @@ namespace SudokuSolver
                         if (!er && !ec && !es)
                         {
                             int cell = value;
-                            cells[row, col] = cell;
+                            Cells[row, col] = cell;
                             break;
                         }
                     }
@@ -252,11 +248,11 @@ namespace SudokuSolver
             if (ExistsEmptyCells())
             {
                 int nc = 0;
-                for (int x = 0; x < size; x++)
+                for (int x = 0; x < Size; x++)
                 {
-                    for (int y = 0; y < size; y++)
+                    for (int y = 0; y < Size; y++)
                     {
-                        cells[x, y] = nc;
+                        Cells[x, y] = nc;
 
                     }
                 }
@@ -270,8 +266,8 @@ namespace SudokuSolver
             Random a = new Random(); // replace from new Random(DateTime.Now.Ticks.GetHashCode());
                                      // Since similar code is done in default constructor internally
             List<int> randomList = new List<int>();
-            int newNumber = 0;
-            while (randomList.Count < _filledCells)
+            int newNumber;
+            while (randomList.Count < FilledCells)
             {
                 newNumber = a.Next(0, 80);
                 if (!randomList.Contains(newNumber))
@@ -279,7 +275,7 @@ namespace SudokuSolver
                     randomList.Add(newNumber);
                     int row = newNumber / 9;
                     int col = newNumber % 9;
-                    cells[row, col] = 0;
+                    Cells[row, col] = 0;
                 }
             }
         }
@@ -291,7 +287,7 @@ namespace SudokuSolver
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    if (cells[i, j] == 0)
+                    if (Cells[i, j] == 0)
                     {
                         result = true;
                     }
@@ -305,22 +301,22 @@ namespace SudokuSolver
             switch (value)
             {
                 case 0:
-                    _filledCells = 32;
+                    FilledCells = 32;
                     break;
                 case 1:
-                    _filledCells = 30;
+                    FilledCells = 30;
                     break;
                 case 2:
-                    _filledCells = 28;
+                    FilledCells = 28;
                     break;
                 case 3:
-                    _filledCells = 26;
+                    FilledCells = 26;
                     break;
                 case 4:
-                    _filledCells = 24;
+                    FilledCells = 24;
                     break;
                 default:
-                    _filledCells = 32;
+                    FilledCells = 32;
                     break;
             }
 

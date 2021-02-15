@@ -20,12 +20,11 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private RowCollection rowCollection = new RowCollection();
-        private RowCollection rowCollectionBckp = new RowCollection();
+        private RowCollection _rowCollection = new RowCollection();
+        private RowCollection _rowCollectionBckp = new RowCollection();
         public PuzzleGrid _grid;
         private PuzzleGrid _gridBckp;
         
-        public static List<Row> Rows;
         private int _difficult { get; set; }
         public MainWindow()
         {
@@ -34,10 +33,10 @@ namespace WpfApp1
             PuzzleGrid grid = new PuzzleGrid();
             grid.CreateGrid();
             PuzzleGrid gridBckp = (PuzzleGrid)grid.Clone();
-            var cells = grid.cells;
-            int size = PuzzleGrid.size;
+            var cells = grid.Cells;
+            int size = PuzzleGrid.Size;
 
-            DataContext = rowCollection;
+            DataContext = _rowCollection;
 
             for (int i = 0; i < 9; i++)
             {
@@ -48,11 +47,11 @@ namespace WpfApp1
                     row[j] = cells[i, j];
 
                 }
-                rowCollection.AddRow(new Row(row));
+                _rowCollection.AddRow(new Row(row));
             }
 
-            dataGrid1.ItemsSource = rowCollection.Rows;
-            rowCollectionBckp = rowCollection;
+            dataGrid1.ItemsSource = _rowCollection.Rows;
+            _rowCollectionBckp = _rowCollection;
             _grid = grid;
             _gridBckp = gridBckp;
 
@@ -61,20 +60,25 @@ namespace WpfApp1
         private void Solve_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             _difficult = 0;
-
+            _grid.Cells = (int[,])_grid.CellsBckp.Clone();
+            UpdateDataGridCells();
         }
 
         private void DifficultList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _grid.SelectedDifficult = Array.FindIndex(PuzzleGrid.DifficultType, x => x == e.AddedItems[0].ToString());
-            _grid.cells = (int[,])_grid.cellsBckp.Clone();            
+            _grid.Cells = (int[,])_grid.CellsBckp.Clone();            
             _grid.RemoveCells();
-            
-            var grid = _grid.cells;
-            int size = PuzzleGrid.size;
+            UpdateDataGridCells();
+        }
 
-            rowCollection.Rows.Clear();
-            DataContext = rowCollection;
+        private void UpdateDataGridCells()
+        {
+            var grid = _grid.Cells;
+            int size = PuzzleGrid.Size;
+
+            _rowCollection.Rows.Clear();
+            DataContext = _rowCollection;
 
             for (int i = 0; i < 9; i++)
             {
@@ -85,10 +89,10 @@ namespace WpfApp1
                     row[j] = grid[i, j];
 
                 }
-                rowCollection.AddRow(new Row(row));
+                _rowCollection.AddRow(new Row(row));
             }
 
-            dataGrid1.ItemsSource = rowCollection.Rows;
+            dataGrid1.ItemsSource = _rowCollection.Rows;
             dataGrid1.UpdateLayout();
         }
     }
