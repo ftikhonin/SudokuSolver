@@ -60,7 +60,8 @@ namespace WpfApp1
         private void Solve_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             _difficult = 0;
-
+            _grid.Cells = (int[,])_grid.CellsBckp.Clone();
+            UpdateDataGridCells();
         }
 
         private void DifficultList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -68,7 +69,11 @@ namespace WpfApp1
             _grid.SelectedDifficult = Array.FindIndex(PuzzleGrid.DifficultType, x => x == e.AddedItems[0].ToString());
             _grid.Cells = (int[,])_grid.CellsBckp.Clone();            
             _grid.RemoveCells();
-            
+            UpdateDataGridCells();
+        }
+
+        private void UpdateDataGridCells()
+        {
             var grid = _grid.Cells;
             int size = PuzzleGrid.Size;
 
