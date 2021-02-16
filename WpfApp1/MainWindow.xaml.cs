@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static SudokuSolver.PuzzleGrid;
+
 namespace WpfApp1
 {
     /// <summary>
@@ -20,53 +22,33 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private RowCollection _rowCollection = new RowCollection();
-        private RowCollection _rowCollectionBckp = new RowCollection();
+        private readonly RowCollection _rowCollection = new RowCollection();
         public PuzzleGrid _grid;
-        private PuzzleGrid _gridBckp;
-        
-        private int _difficult { get; set; }
+
+        private int Difficult { get; set; }
         public MainWindow()
         {
             InitializeComponent();
             DifficultList.ItemsSource = new List<DifficultBox> { new DifficultBox() };
             PuzzleGrid grid = new PuzzleGrid();
             grid.CreateGrid();
-            PuzzleGrid gridBckp = (PuzzleGrid)grid.Clone();
-            var cells = grid.Cells;
-            int size = PuzzleGrid.Size;
-
-            DataContext = _rowCollection;
-
-            for (int i = 0; i < 9; i++)
-            {
-                int[] row = new int[size];
-
-                for (int j = 0; j < size; j++)
-                {
-                    row[j] = cells[i, j];
-
-                }
-                _rowCollection.AddRow(new Row(row));
-            }
-
-            dataGrid1.ItemsSource = _rowCollection.Rows;
-            _rowCollectionBckp = _rowCollection;
             _grid = grid;
-            _gridBckp = gridBckp;
-
+            UpdateDataGridCells();
         }
 
         private void Solve_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _difficult = 0;
+            Difficult = 0;
             _grid.Cells = (int[,])_grid.CellsBckp.Clone();
             UpdateDataGridCells();
         }
 
         private void DifficultList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _grid.SelectedDifficult = Array.FindIndex(PuzzleGrid.DifficultType, x => x == e.AddedItems[0].ToString());
+            _grid.SelectedDifficult = Array.FindIndex(DifficultType, x => x == e.AddedItems[0].ToString());
+            PuzzleGrid grid = new PuzzleGrid();
+            grid.CreateGrid();
+            _grid = grid;
             _grid.Cells = (int[,])_grid.CellsBckp.Clone();            
             _grid.RemoveCells();
             UpdateDataGridCells();
@@ -75,16 +57,15 @@ namespace WpfApp1
         private void UpdateDataGridCells()
         {
             var grid = _grid.Cells;
-            int size = PuzzleGrid.Size;
 
             _rowCollection.Rows.Clear();
             DataContext = _rowCollection;
 
             for (int i = 0; i < 9; i++)
             {
-                int[] row = new int[size];
+                int[] row = new int[PuzzleSize];
 
-                for (int j = 0; j < size; j++)
+                for (int j = 0; j < PuzzleSize; j++)
                 {
                     row[j] = grid[i, j];
 
