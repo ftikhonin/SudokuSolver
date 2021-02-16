@@ -20,46 +20,23 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private RowCollection _rowCollection = new RowCollection();
-        private RowCollection _rowCollectionBckp = new RowCollection();
+        private readonly RowCollection _rowCollection = new RowCollection();
         public PuzzleGrid _grid;
-        private PuzzleGrid _gridBckp;
-        
-        private int _difficult { get; set; }
+
+        private int Difficult { get; set; }
         public MainWindow()
         {
             InitializeComponent();
             DifficultList.ItemsSource = new List<DifficultBox> { new DifficultBox() };
             PuzzleGrid grid = new PuzzleGrid();
             grid.CreateGrid();
-            PuzzleGrid gridBckp = (PuzzleGrid)grid.Clone();
-            var cells = grid.Cells;
-            int size = PuzzleGrid.Size;
-
-            DataContext = _rowCollection;
-
-            for (int i = 0; i < 9; i++)
-            {
-                int[] row = new int[size];
-
-                for (int j = 0; j < size; j++)
-                {
-                    row[j] = cells[i, j];
-
-                }
-                _rowCollection.AddRow(new Row(row));
-            }
-
-            dataGrid1.ItemsSource = _rowCollection.Rows;
-            _rowCollectionBckp = _rowCollection;
             _grid = grid;
-            _gridBckp = gridBckp;
-
+            UpdateDataGridCells();
         }
 
         private void Solve_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _difficult = 0;
+            Difficult = 0;
             _grid.Cells = (int[,])_grid.CellsBckp.Clone();
             UpdateDataGridCells();
         }
