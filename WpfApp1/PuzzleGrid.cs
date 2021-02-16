@@ -296,7 +296,7 @@ namespace SudokuSolver
             return result;
         }
 
-        public void SetDifficult(int value)
+        public void  SetDifficult(int value)
         {
             switch (value)
             {
