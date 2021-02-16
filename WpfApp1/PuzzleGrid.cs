@@ -7,9 +7,9 @@ namespace SudokuSolver
 {
     public class PuzzleGrid :ICloneable
     {
-        public const int Size = 9;
-        public int[,] Cells = new int[Size, Size];
-        public int[,] CellsBckp = new int[Size, Size];
+        public const int PuzzleSize = 9;
+        public int[,] Cells = new int[PuzzleSize, PuzzleSize];
+        public int[,] CellsBckp = new int[PuzzleSize, PuzzleSize];
         private readonly int _defaultDifficult = 0;
         public List<int> Candidates = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         public int SelectedDifficult
@@ -202,9 +202,9 @@ namespace SudokuSolver
         public void CreateGrid()
         {
             const int nc = 0;
-            for (int x = 0; x < Size; x++)
+            for (int x = 0; x < PuzzleSize; x++)
             {
-                for (int y = 0; y < Size; y++)
+                for (int y = 0; y < PuzzleSize; y++)
                 {
                     Cells[x, y] = nc;
 
@@ -248,9 +248,9 @@ namespace SudokuSolver
             if (ExistsEmptyCells())
             {
                 int nc = 0;
-                for (int x = 0; x < Size; x++)
+                for (int x = 0; x < PuzzleSize; x++)
                 {
-                    for (int y = 0; y < Size; y++)
+                    for (int y = 0; y < PuzzleSize; y++)
                     {
                         Cells[x, y] = nc;
 

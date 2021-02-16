@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static SudokuSolver.PuzzleGrid;
+
 namespace WpfApp1
 {
     /// <summary>
@@ -43,7 +45,10 @@ namespace WpfApp1
 
         private void DifficultList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _grid.SelectedDifficult = Array.FindIndex(PuzzleGrid.DifficultType, x => x == e.AddedItems[0].ToString());
+            _grid.SelectedDifficult = Array.FindIndex(DifficultType, x => x == e.AddedItems[0].ToString());
+            PuzzleGrid grid = new PuzzleGrid();
+            grid.CreateGrid();
+            _grid = grid;
             _grid.Cells = (int[,])_grid.CellsBckp.Clone();            
             _grid.RemoveCells();
             UpdateDataGridCells();
@@ -52,16 +57,15 @@ namespace WpfApp1
         private void UpdateDataGridCells()
         {
             var grid = _grid.Cells;
-            int size = PuzzleGrid.Size;
 
             _rowCollection.Rows.Clear();
             DataContext = _rowCollection;
 
             for (int i = 0; i < 9; i++)
             {
-                int[] row = new int[size];
+                int[] row = new int[PuzzleSize];
 
-                for (int j = 0; j < size; j++)
+                for (int j = 0; j < PuzzleSize; j++)
                 {
                     row[j] = grid[i, j];
 
