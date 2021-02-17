@@ -34,6 +34,7 @@ namespace WpfApp1
             grid.CreateGrid();
             _grid = grid;
             UpdateDataGridCells();
+            //dataGrid1.CellStyle.
         }
 
         private void Solve_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
