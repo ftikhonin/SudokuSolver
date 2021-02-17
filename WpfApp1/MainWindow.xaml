@@ -63,7 +63,7 @@
                         <GridView>
                             <GridViewColumn Width="300">
                                 <GridViewColumn.CellTemplate>
-                                    <DataTemplate DataType="wpf:Entry">
+                                    <DataTemplate>
                                         <ComboBox
                                             Width="300"
                                             Margin="0"
@@ -78,6 +78,7 @@
                 </ListView>
             </StackPanel>
         </Grid>
+
         <Grid Height="309" Margin="0,0,171,0">
             <DataGrid
                 Name="dataGrid1"
@@ -89,6 +90,8 @@
                 VerticalAlignment="Top"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
+                AlternatingRowBackground="Bisque"
+                AlternationCount="0"
                 AutoGenerateColumns="True"
                 CanUserAddRows="false"
                 ColumnWidth="SizeToCells"
@@ -97,6 +100,8 @@
                 HorizontalScrollBarVisibility="Hidden"
                 RenderTransformOrigin="0.988,0.498" />
 
+
         </Grid>
     </Grid>
+
 </Window>
