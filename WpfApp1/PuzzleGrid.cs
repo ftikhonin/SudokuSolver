@@ -34,7 +34,6 @@ namespace SudokuSolver
         public int FilledCells { get; set; } = 32;
 
 
-
         public bool CheckExistsInRow(int val, int row)
         {
             bool result = false;
