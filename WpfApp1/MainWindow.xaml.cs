@@ -16,7 +16,6 @@ namespace WpfApp1
         private readonly RowCollection _rowCollection = new RowCollection();
         public PuzzleGrid _grid;
 
-        private int Difficult { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -30,7 +29,6 @@ namespace WpfApp1
 
         private void Solve_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Difficult = 0;
             _grid.Cells = (int[,])_grid.CellsBckp.Clone();
             UpdateDataGridCells();
         }
