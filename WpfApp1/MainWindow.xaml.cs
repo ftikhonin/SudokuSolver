@@ -1,6 +1,7 @@
 ﻿using SudokuSolver;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -65,6 +66,11 @@ namespace WpfApp1
 
             dataGrid1.ItemsSource = _rowCollection.Rows;
             dataGrid1.UpdateLayout();
+        }
+        /// <summary>Numeric input only</summary>
+        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = new Regex("[^1-9]+").IsMatch(e.Text);
         }
     }
 }

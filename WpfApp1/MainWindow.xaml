@@ -38,7 +38,6 @@
                 </ListView>
                 <ListView
                     x:Name="DifficultList"
-                    VerticalAlignment="Bottom"
                     SelectionChanged="DifficultList_SelectionChanged"
                     SelectionMode="Single">
                     <ListView.View>
@@ -70,16 +69,46 @@
                 VerticalContentAlignment="Center"
                 AlternationCount="0"
                 AutoGenerateColumns="True"
-                Background="Transparent"
-                HorizontalGridLinesBrush="Black"
-                VerticalGridLinesBrush="Black"
                 CanUserAddRows="false"
                 ColumnWidth="SizeToCells"
                 GridLinesVisibility="All"
                 HeadersVisibility="None"
+                HorizontalGridLinesBrush="Black"
                 HorizontalScrollBarVisibility="Hidden"
+                PreviewTextInput="OnPreviewTextInput"
                 RenderTransformOrigin="0.988,0.498"
-                RowBackground="Transparent" />
+                VerticalGridLinesBrush="Black">
+                <DataGrid.Background>
+                    <DrawingBrush TileMode="Tile" Viewport="0,0,0.25,0.25">
+                        <DrawingBrush.Drawing>
+                            <DrawingGroup>
+                                <GeometryDrawing Brush="White">
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry Rect="0,0,100,100" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+
+                                <GeometryDrawing>
+                                    <GeometryDrawing.Geometry>
+                                        <GeometryGroup>
+                                            <RectangleGeometry Rect="0,0,50,50" />
+                                            <RectangleGeometry Rect="50,50,50,50" />
+                                        </GeometryGroup>
+                                    </GeometryDrawing.Geometry>
+                                    <GeometryDrawing.Brush>
+                                        <LinearGradientBrush>
+                                            <GradientStop Offset="1.0" Color="#C0C0C0" />
+                                        </LinearGradientBrush>
+                                    </GeometryDrawing.Brush>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+
+
+                </DataGrid.Background>
+            </DataGrid>
+
         </Grid>
     </Grid>
 </Window>
