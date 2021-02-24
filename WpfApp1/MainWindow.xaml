@@ -59,7 +59,7 @@
                 </ListView>
             </StackPanel>
         </Grid>
-        <Grid Height="309">
+        <Grid Height="351">
             <DataGrid
                 Name="dataGrid1"
                 Margin="352,0,-581,0"
@@ -70,34 +70,38 @@
                 AlternationCount="0"
                 AutoGenerateColumns="True"
                 CanUserAddRows="false"
-                ColumnWidth="SizeToCells"
+                ColumnWidth="39"
                 GridLinesVisibility="All"
                 HeadersVisibility="None"
                 HorizontalGridLinesBrush="Black"
                 HorizontalScrollBarVisibility="Hidden"
                 PreviewTextInput="OnPreviewTextInput"
                 RenderTransformOrigin="0.988,0.498"
+                RowHeight="39"
                 VerticalGridLinesBrush="Black">
+
                 <DataGrid.Background>
-                    <DrawingBrush TileMode="Tile" Viewport="0,0,0.25,0.25">
+                    <DrawingBrush TileMode="Tile">
                         <DrawingBrush.Drawing>
                             <DrawingGroup>
                                 <GeometryDrawing Brush="White">
                                     <GeometryDrawing.Geometry>
-                                        <RectangleGeometry Rect="0,0,100,100" />
+                                        <RectangleGeometry Rect="0,0,80,80" />
                                     </GeometryDrawing.Geometry>
                                 </GeometryDrawing>
 
                                 <GeometryDrawing>
                                     <GeometryDrawing.Geometry>
                                         <GeometryGroup>
-                                            <RectangleGeometry Rect="0,0,50,50" />
-                                            <RectangleGeometry Rect="50,50,50,50" />
+                                            <RectangleGeometry Rect="80,80,80,80" />
+                                            <RectangleGeometry Rect="160,160,80,80" />
+                                            <RectangleGeometry Rect="0,160,80,80" />
+                                            <RectangleGeometry Rect="160,0,80,80" />
                                         </GeometryGroup>
                                     </GeometryDrawing.Geometry>
                                     <GeometryDrawing.Brush>
                                         <LinearGradientBrush>
-                                            <GradientStop Offset="1.0" Color="#C0C0C0" />
+                                            <GradientStop Offset="1.0" Color="White" />
                                         </LinearGradientBrush>
                                     </GeometryDrawing.Brush>
                                 </GeometryDrawing>
