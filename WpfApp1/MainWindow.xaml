@@ -79,40 +79,26 @@
                 RenderTransformOrigin="0.988,0.498"
                 RowHeight="39"
                 VerticalGridLinesBrush="Black">
-
                 <DataGrid.Background>
-                    <DrawingBrush TileMode="Tile">
+                    <DrawingBrush Opacity="0.3">
                         <DrawingBrush.Drawing>
                             <DrawingGroup>
                                 <GeometryDrawing Brush="White">
                                     <GeometryDrawing.Geometry>
-                                        <RectangleGeometry Rect="0,0,80,80" />
-                                    </GeometryDrawing.Geometry>
-                                </GeometryDrawing>
-
-                                <GeometryDrawing>
-                                    <GeometryDrawing.Geometry>
                                         <GeometryGroup>
+                                            <RectangleGeometry Rect="0,0,80,80" />
                                             <RectangleGeometry Rect="80,80,80,80" />
                                             <RectangleGeometry Rect="160,160,80,80" />
                                             <RectangleGeometry Rect="0,160,80,80" />
                                             <RectangleGeometry Rect="160,0,80,80" />
                                         </GeometryGroup>
                                     </GeometryDrawing.Geometry>
-                                    <GeometryDrawing.Brush>
-                                        <LinearGradientBrush>
-                                            <GradientStop Offset="1.0" Color="White" />
-                                        </LinearGradientBrush>
-                                    </GeometryDrawing.Brush>
                                 </GeometryDrawing>
                             </DrawingGroup>
                         </DrawingBrush.Drawing>
                     </DrawingBrush>
-
-
                 </DataGrid.Background>
             </DataGrid>
-
         </Grid>
     </Grid>
 </Window>
