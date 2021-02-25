@@ -59,7 +59,6 @@ namespace WpfApp1
                 for (int j = 0; j < PuzzleSize; j++)
                 {
                     row[j] = grid[i, j];
-
                 }
                 _rowCollection.AddRow(new Row(row));
             }

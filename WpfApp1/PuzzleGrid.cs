@@ -206,7 +206,6 @@ namespace SudokuSolver
                 for (int y = 0; y < PuzzleSize; y++)
                 {
                     Cells[x, y] = nc;
-
                 }
             }
             SolveGrid();
@@ -266,11 +265,19 @@ namespace SudokuSolver
                                      // Since similar code is done in default constructor internally
             List<int> randomList = new List<int>();
             int newNumber;
+
+            for (int i = 0; i < 81; i++)
+            {
+                ReadOnlyCellsIndex.Add(i);
+            }
+
             while (randomList.Count < FilledCells)
             {
                 newNumber = a.Next(0, 80);
                 if (!randomList.Contains(newNumber))
                 {
+                    //leave cell indexes in the list for readonly
+                    ReadOnlyCellsIndex.Remove(newNumber); 
                     randomList.Add(newNumber);
                     int row = newNumber / 9;
                     int col = newNumber % 9;
@@ -279,6 +286,7 @@ namespace SudokuSolver
             }
         }
 
+        public List<int> ReadOnlyCellsIndex = new List<int>();
         public bool ExistsEmptyCells()
         {
             bool result = false;
