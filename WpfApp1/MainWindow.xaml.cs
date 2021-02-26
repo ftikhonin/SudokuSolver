@@ -24,8 +24,7 @@ namespace WpfApp1
             PuzzleGrid grid = new PuzzleGrid();
             grid.CreateGrid();
             _grid = grid;
-            UpdateDataGridCells();
-            //dataGrid1.CellStyle.
+            UpdateDataGridCells();            
         }
 
         private void Solve_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -70,6 +69,14 @@ namespace WpfApp1
         private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = new Regex("[^1-9]+").IsMatch(e.Text);
+        }
+
+        private void DataGrid1_OnPreparingCellForEdit(object sender, DataGridPreparingCellForEditEventArgs e)
+        {
+            var col = e.Column;
+            var row = e.Row;
+            int row_index = ((DataGrid)sender).ItemContainerGenerator.IndexFromContainer(row);
+            int col_index = col.DisplayIndex;
         }
     }
 }
