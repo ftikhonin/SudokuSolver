@@ -77,6 +77,7 @@ namespace WpfApp1
             var row = e.Row;
             int row_index = ((DataGrid)sender).ItemContainerGenerator.IndexFromContainer(row);
             int col_index = col.DisplayIndex;
+            //TODO: make filled cells read-only
         }
     }
 }

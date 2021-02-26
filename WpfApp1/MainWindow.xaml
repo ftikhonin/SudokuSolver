@@ -75,12 +75,11 @@
                 HeadersVisibility="None"
                 HorizontalGridLinesBrush="Black"
                 HorizontalScrollBarVisibility="Hidden"
+                PreparingCellForEdit="DataGrid1_OnPreparingCellForEdit"
                 PreviewTextInput="OnPreviewTextInput"
                 RenderTransformOrigin="0.988,0.498"
                 RowHeight="39"
-                VerticalGridLinesBrush="Black"
-                PreparingCellForEdit="DataGrid1_OnPreparingCellForEdit"
-            >
+                VerticalGridLinesBrush="Black">
                 <DataGrid.Background>
                     <DrawingBrush Opacity="0.3">
                         <DrawingBrush.Drawing>
