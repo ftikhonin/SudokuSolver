@@ -78,7 +78,9 @@
                 PreviewTextInput="OnPreviewTextInput"
                 RenderTransformOrigin="0.988,0.498"
                 RowHeight="39"
-                VerticalGridLinesBrush="Black">
+                VerticalGridLinesBrush="Black"
+                PreparingCellForEdit="DataGrid1_OnPreparingCellForEdit"
+            >
                 <DataGrid.Background>
                     <DrawingBrush Opacity="0.3">
                         <DrawingBrush.Drawing>
