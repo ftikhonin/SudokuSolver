@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
+
 namespace SudokuSolver
 {
     public class PuzzleGrid :ICloneable
@@ -25,12 +27,13 @@ namespace SudokuSolver
             return other;
         }
 
-        public static string[] DifficultType = new string[5] { "Beginner",  //0 - 32
-                                                               "Easy",      //1 - 30
-                                                               "Medium",    //2 - 28
-                                                               "Tricky",    //3 - 26
-                                                               "Fiendish" };//4 - 24
-        /// <summary> Количество заполненных клеток, в зависимости от уровня сложности (по умолчанию 32)</summary>
+        public static string[] DifficultType = new string[5] { "Beginner",   //0 - 32
+                                                               "Easy",       //1 - 30
+                                                               "Medium",     //2 - 28
+                                                               "Tricky",     //3 - 26
+                                                               "Fiendish" }; //4 - 24
+
+        /// <summary> The number of filled cells, depending on the complexity (by default 32)</summary>
         public int FilledCells { get; set; } = 32;
 
 
@@ -265,28 +268,30 @@ namespace SudokuSolver
                                      // Since similar code is done in default constructor internally
             List<int> randomList = new List<int>();
             int newNumber;
-
-            for (int i = 0; i < 81; i++)
-            {
-                ReadOnlyCellsIndex.Add(i);
-            }
+            
 
             while (randomList.Count < FilledCells)
             {
                 newNumber = a.Next(0, 80);
                 if (!randomList.Contains(newNumber))
                 {
-                    //leave cell indexes in the list for readonly
-                    ReadOnlyCellsIndex.Remove(newNumber); 
                     randomList.Add(newNumber);
                     int row = newNumber / 9;
                     int col = newNumber % 9;
                     Cells[row, col] = 0;
+
+                    Cell cell = new Cell
+                    {
+                        X = row,
+                        Y = col
+                    };
+                    //leave cell indexes in the list for readonly
+                    ReadOnlyCellsIndex.Add(cell);
                 }
             }
         }
 
-        public List<int> ReadOnlyCellsIndex = new List<int>();
+        public static List<Cell> ReadOnlyCellsIndex = new List<Cell>();
         public bool ExistsEmptyCells()
         {
             bool result = false;

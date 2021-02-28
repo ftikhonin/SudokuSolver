@@ -1,6 +1,7 @@
 ﻿using SudokuSolver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -71,13 +72,21 @@ namespace WpfApp1
             e.Handled = new Regex("[^1-9]+").IsMatch(e.Text);
         }
 
+        /// <summary>Makes filled cells read-only</summary>
         private void DataGrid1_OnPreparingCellForEdit(object sender, DataGridPreparingCellForEditEventArgs e)
         {
             var col = e.Column;
             var row = e.Row;
             int row_index = ((DataGrid)sender).ItemContainerGenerator.IndexFromContainer(row);
             int col_index = col.DisplayIndex;
-            //TODO: make filled cells read-only
+
+
+            if (!ReadOnlyCellsIndex.Any(x => x.X == row_index && x.Y == col_index))
+            {
+                //TODO: make filled cells read-only and remove this message box
+                MessageBox.Show("Gotcha!");
+            }
+            var q = ReadOnlyCellsIndex;
         }
     }
 }
