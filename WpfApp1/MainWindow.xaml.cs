@@ -25,7 +25,7 @@ namespace WpfApp1
             PuzzleGrid grid = new PuzzleGrid();
             grid.CreateGrid();
             _grid = grid;
-            UpdateDataGridCells();            
+            UpdateDataGridCells();
         }
 
         private void Solve_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -40,7 +40,7 @@ namespace WpfApp1
             PuzzleGrid grid = new PuzzleGrid();
             grid.CreateGrid();
             _grid = grid;
-            _grid.Cells = (int[,])_grid.CellsBckp.Clone();            
+            _grid.Cells = (int[,])_grid.CellsBckp.Clone();
             _grid.RemoveCells();
             UpdateDataGridCells();
         }
@@ -80,13 +80,10 @@ namespace WpfApp1
             int row_index = ((DataGrid)sender).ItemContainerGenerator.IndexFromContainer(row);
             int col_index = col.DisplayIndex;
 
-
             if (!ReadOnlyCellsIndex.Any(x => x.X == row_index && x.Y == col_index))
             {
-                //TODO: make filled cells read-only and remove this message box
-                MessageBox.Show("Gotcha!");
+                dataGrid1.CancelEdit();
             }
-            var q = ReadOnlyCellsIndex;
         }
     }
 }
