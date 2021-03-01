@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using static SudokuSolver.PuzzleGrid;
 
 namespace WpfApp1
@@ -85,6 +86,49 @@ namespace WpfApp1
                 dataGrid1.CancelEdit();
             }
         }
+
+        private void DataGrid1_OnCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            var col = e.Column;
+            var row = e.Row;
+            int row_index = ((DataGrid)sender).ItemContainerGenerator.IndexFromContainer(row);
+            int col_index = col.DisplayIndex;
+            //TODO: Add a check for the validity of a value by Possible method
+            string val = ((DataGrid) sender).SelectedCells.FirstOrDefault().ToString();
+
+        }
+
+        public bool Possible(int y, int x, int n)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                if (_grid.Cells[y, i] == n)
+                {
+                    return false;
+                }
+            }
+            for (int i = 0; i < 9; i++)
+            {
+                if (_grid.Cells[i, x] == n)
+                {
+                    return false;
+                }
+            }
+            int x0 = (x / 3) * 3;
+            int y0 = (y / 3) * 3;
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    var q = _grid.Cells[y0 + i, x0 + j];
+                    if (q == n)
+                        return false;
+                }
+            }
+            return true;
+        }
     }
+
+
 }
 
