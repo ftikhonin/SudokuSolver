@@ -89,13 +89,16 @@ namespace WpfApp1
 
         private void DataGrid1_OnCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            var col = e.Column;
-            var row = e.Row;
-            int row_index = ((DataGrid)sender).ItemContainerGenerator.IndexFromContainer(row);
-            int col_index = col.DisplayIndex;
-            //TODO: Add a check for the validity of a value by Possible method
-            string val = ((DataGrid) sender).SelectedCells.FirstOrDefault().ToString();
 
+            int rowIndex = ((DataGrid)sender).ItemContainerGenerator.IndexFromContainer(e.Row);
+            int colIndex = e.Column.DisplayIndex;
+            //TODO: Add a check for the validity of a inserted value by Possible method
+            //string val = ((DataGrid) sender).SelectedCells.FirstOrDefault().ToString();
+
+            DataGridRow editedRow = dataGrid1.ItemContainerGenerator.ContainerFromItem(dataGrid1.Items[rowIndex]) as DataGridRow;
+            DataGridCell editedCell = dataGrid1.Columns[colIndex].GetCellContent(editedRow).Parent as DataGridCell;
+            //set background
+            editedCell.Background = Brushes.Red;
         }
 
         public bool Possible(int y, int x, int n)

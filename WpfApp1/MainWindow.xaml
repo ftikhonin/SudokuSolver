@@ -11,8 +11,7 @@
     Height="300"
     fw:AcrylicWindow.Enabled="True"
     SizeToContent="Height"
-    mc:Ignorable="d"
->
+    mc:Ignorable="d">
 
     <Grid Margin="0,0,0,100">
         <Grid.ColumnDefinitions>
@@ -72,19 +71,17 @@
                 AlternationCount="0"
                 AutoGenerateColumns="True"
                 CanUserAddRows="false"
+                CellEditEnding="DataGrid1_OnCellEditEnding"
                 ColumnWidth="39"
                 GridLinesVisibility="All"
                 HeadersVisibility="None"
                 HorizontalGridLinesBrush="Black"
                 HorizontalScrollBarVisibility="Hidden"
                 PreparingCellForEdit="DataGrid1_OnPreparingCellForEdit"
-                CellEditEnding="DataGrid1_OnCellEditEnding"
                 PreviewTextInput="OnPreviewTextInput"
                 RenderTransformOrigin="0.988,0.498"
                 RowHeight="39"
-                VerticalGridLinesBrush="Black"
-                
->
+                VerticalGridLinesBrush="Black">
                 <DataGrid.Background>
                     <DrawingBrush Opacity="0.3">
                         <DrawingBrush.Drawing>
