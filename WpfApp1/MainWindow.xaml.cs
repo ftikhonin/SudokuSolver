@@ -78,10 +78,10 @@ namespace WpfApp1
         {
             var col = e.Column;
             var row = e.Row;
-            int row_index = ((DataGrid)sender).ItemContainerGenerator.IndexFromContainer(row);
-            int col_index = col.DisplayIndex;
+            int rowIndex = ((DataGrid)sender).ItemContainerGenerator.IndexFromContainer(row);
+            int colIndex = col.DisplayIndex;
 
-            if (!ReadOnlyCellsIndex.Any(x => x.X == row_index && x.Y == col_index))
+            if (!ReadOnlyCellsIndex.Any(x => x.X == rowIndex && x.Y == colIndex))
             {
                 dataGrid1.CancelEdit();
             }
@@ -92,13 +92,27 @@ namespace WpfApp1
 
             int rowIndex = ((DataGrid)sender).ItemContainerGenerator.IndexFromContainer(e.Row);
             int colIndex = e.Column.DisplayIndex;
-            //TODO: Add a check for the validity of a inserted value by Possible method
-            //string val = ((DataGrid) sender).SelectedCells.FirstOrDefault().ToString();
 
+            //get edited cell
             DataGridRow editedRow = dataGrid1.ItemContainerGenerator.ContainerFromItem(dataGrid1.Items[rowIndex]) as DataGridRow;
             DataGridCell editedCell = dataGrid1.Columns[colIndex].GetCellContent(editedRow).Parent as DataGridCell;
+
             //set background
-            editedCell.Background = Brushes.Red;
+            var valTextBox = (TextBox)editedCell.Content;
+            var val = valTextBox.Text;
+
+            //if the value does not possible, paint it red
+            if (!string.IsNullOrWhiteSpace(val) && ReadOnlyCellsIndex.Any(x => x.X == rowIndex && x.Y == colIndex))
+            {
+                if (!Possible(rowIndex, colIndex, Convert.ToInt32(val)))
+                {
+                    editedCell.Background = Brushes.Red;
+                }
+                else
+                {
+                    editedCell.Background = Brushes.Transparent;
+                }
+            }
         }
 
         public bool Possible(int y, int x, int n)
