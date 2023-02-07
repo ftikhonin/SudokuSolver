@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolver", "WpfApp1\SudokuSolver.csproj", "{EA9A98BE-99A8-4530-BBAF-67E35ADDB075}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolver", "SudokuSolver.csproj", "{EA9A98BE-99A8-4530-BBAF-67E35ADDB075}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
